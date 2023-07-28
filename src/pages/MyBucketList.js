@@ -61,7 +61,7 @@ const MyBucketList = () => {
     let list = response.data;
     for(let i = 0; i < list.length; i++) {
     
-      if(list[i].id == 1){
+      if(list[i].id === 1){
         setCompleteCount(list[i].complete_count);
         setUserLevel(list[i].level);
       }
@@ -121,7 +121,7 @@ const MyBucketList = () => {
         {/* 레벨 진행바 */}
         <Progress>
           <ProgressBack/>
-          <ProgressFrontBack/>
+          <ProgressFrontBack widthPer={userLevel * 10}/>
         </Progress>
 
         <LevelNotice>
@@ -136,7 +136,7 @@ const MyBucketList = () => {
         <BonusBox>
           <BonusIcon>🔥</BonusIcon>
           <BonusContent>
-            <BonusGoal>5레벨 달성하기</BonusGoal>
+            <BonusGoal>{userLevel + 1}레벨 달성하기</BonusGoal>
             <BonusCategory>일상</BonusCategory>
           </BonusContent>
           <MenuButton src={menuIcon} />
@@ -254,7 +254,7 @@ const ProgressBack = styled.div`
 `;
 const ProgressFrontBack = styled.div`
   position: absolute;
-  width: 30%;
+  width: ${props => `${props.widthPer}%`};
   height: 2vw;
   margin-top: 2vw;
   border-radius: 2vw;
