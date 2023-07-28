@@ -7,6 +7,9 @@ import menuIcon from "../contents/ic_bucket_menu.jpg";
 import navigateNext from "../contents/ic_navigate_next.jpg";
 
 const MyBucketList = () => {
+  const dreamList = [["❤️", "고구마 먹고 춤추기"], ["🧡", "호랑이랑 악수하기"], ["💛", "사람들 앞에서 러닝머신타기"]];
+  const emoji = ["❤️", "🧡", "💛", "💚", "💙", "💜"];
+
   return (
     <Container>
       {/* 헤더: 프로필, 서비스명 */}
@@ -53,6 +56,29 @@ const MyBucketList = () => {
           <NavigateNextBtn src={navigateNext}/>
         </YearBucket>
       </MyBucket>
+
+      {/* 드림퀘스트 생성 버튼 */}
+      <CreateQuestBtns>
+        <DirectCreateBtn>직접 등록</DirectCreateBtn>
+        <GptCreateBtn>나의 드림퀘스트 만들기</GptCreateBtn>
+      </CreateQuestBtns>
+
+      {/* 드림퀘스트 내용 */}
+      <AllBucketList>
+        <Category>일상</Category>
+        <div>
+          {dreamList.map(dream => (
+            <AllBucketBox>
+              <AllBucketIcon>{dream[0]}</AllBucketIcon>
+              <AllBucketContent>
+                <AllBucketGoal>{dream[1]}</AllBucketGoal>
+                <AllBucketCategory>일상</AllBucketCategory>
+              </AllBucketContent>
+              <MenuButton src={menuIcon} />
+            </AllBucketBox>
+          ))}
+        </div>
+      </AllBucketList>
       
     </Container>
   );
@@ -62,6 +88,7 @@ const MyBucketList = () => {
 const Container = styled.div`
   display: block;
   position: relative;
+  height: max-content;
   min-width: 100vw;
   min-height: 100vh;
   background-color: ${palette.background};
@@ -160,6 +187,7 @@ const BonusContent = styled.div`
 `;
 const BonusGoal = styled.div`
   font-family: 'NotoSansKR-Medium';
+  margin-bottom: 0.5vw;
   font-size: 14px;
   color: ${palette.black};
 `;
@@ -225,8 +253,85 @@ const NavigateNextBtn = styled.img`
 
 // 드림퀘스트 생성 버튼
 const CreateQuestBtns = styled.div`
-  
+  display: flex;
+  width: 92vw;
+  margin-left: 4vw;
+  margin-right: 4vw;
+  margin-top: 4vw;
+  justify-items: center;
+`;
+// 직접 등록
+const DirectCreateBtn = styled.div`
+  width: 30vw;
+  padding-top: 3.5vw;
+  padding-bottom: 3.5vw;
+  padding-left: 6.3vw;
+  padding-right: 6.3vw;
+  margin-right: 2vw;
+  border: 1px solid ${palette.mainColor};
+  border-radius: 1.8vw;
+  background-color: ${palette.white};
+  font-family: 'NotoSansKR-Medium';
+  font-size: 14px;
+  color: ${palette.mainColor};
+  text-align: center;
+`;
+const GptCreateBtn = styled.div`
+  width: 60vw;
+  padding: 3.5vw 3.5vw 3.5vw 3.5vw;
+  border-radius: 1.8vw;
+  background-color: ${palette.mainColor};
+  font-family: 'NotoSansKR-Medium';
+  font-size: 14px;
+  color: ${palette.white};
+  text-align: center;
 `;
 
+// 버킷리스트
+const AllBucketList = styled.div`
+  display: block;
+  margin-top: 6vw;
+  margin-left: 4vw;
+  margin-right: 4vw;
+  padding-bottom: 6vw;
+`;
+const Category = styled.div`
+  font-family: 'NotoSansKR-Regular';
+  font-size: 12px;
+  color: ${palette.gray66};
+  margin-left: 4vw;
+`;
+
+// 버킷리스트
+const AllBucketBox = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 2vw;
+  width: 92vw;
+  border-radius: 1.8vw;
+  background-color: ${palette.white};
+  box-shadow: 0.2vw 0.2vw 0.2vw 0.2vw ${palette.grayee};
+`;
+const AllBucketIcon = styled.div`
+  margin-left: 4vw;
+  margin-right: 4vw;
+  font-size: 24px;
+`;
+const AllBucketContent = styled.div`
+  display: block;
+  margin-top: 2.5vw;
+  margin-bottom: 2.5vw;
+`;
+const AllBucketGoal = styled.div`
+  font-family: 'NotoSansKR-Medium';
+  font-size: 14px;
+  margin-bottom: 0.5vw;
+  color: ${palette.black};
+`;
+const AllBucketCategory = styled.div`
+  font-family: 'NotoSansKR-Regular';
+  font-size: 12px;
+  color: ${palette.gray66};
+`;
 
 export default MyBucketList;
