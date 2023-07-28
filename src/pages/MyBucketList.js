@@ -11,12 +11,35 @@ import navigateNext from "../contents/ic_navigate_next.jpg";
 import QuestMenuPopUp from "../components/QuestMenuPopUp";
 import CompleteQuestPopUp from "../components/CompleteQuestPopUp";
 
+import axios from 'axios';
+
+const baseUrl = `http://localhost:8080`;
+
+const emoji = ["❤️", "🧡", "💛", "💚", "💙", "💜"];
+
+
 const MyBucketList = () => {
-  const dreamList = [["❤️", "고구마 먹고 춤추기"], ["🧡", "호랑이랑 악수하기"], ["💛", "사람들 앞에서 러닝머신타기"]];
-  const emoji = ["❤️", "🧡", "💛", "💚", "💙", "💜"];
+  //const dreamList = [];
+  
   
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isCompleteQuest, setCompleteQuest] = useState(false);
+  const [dreamList, setDreamList] = useState([]);
+
+  // 전체 버킷리스트 받아오기
+  async function getDreamQuests() {
+    const response = await axios.post(
+      baseUrl + `/chat/list`,
+    );
+  
+    let list = response.data;
+    for(let i = 0; i < list.length; i++) {
+      //dreamList.push([emoji[i%6], list[i].bucket]);
+      setDreamList((currentArray) => [...currentArray, [emoji[i%6], list[i].bucket]])
+    }
+  
+    return dreamList;
+  }
 
   // 버킷리스트 메뉴 열기
   const OpenMenu = () => {
@@ -38,9 +61,14 @@ const MyBucketList = () => {
     setCompleteQuest(false);
   }
 
+  // 최초 접속 시, 드림퀘스트 조회해서 배열에 삽입
+  useEffect(() => {
+    getDreamQuests();
+  }, []);
+
   // isMenuOpen 변수의 값이 변할 때마다 새로고침
   useEffect(() => {
-  }, [isMenuOpen]);
+  }, [isMenuOpen, dreamList]);
 
   return (
     <Container>
