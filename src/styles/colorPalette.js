@@ -8,6 +8,7 @@ const palette = {
   white: '#FFFFFF',
   gray66: '#666666',
   graycc: '#CCCCCC',
+  grayee: '#EEEEEE',
 };
 
 export default palette;

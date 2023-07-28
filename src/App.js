@@ -10,8 +10,8 @@ const App = () => {
   return(
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Main />}></Route>
-        <Route path='/mybucket' element={<MyBucketList />}></Route>
+        <Route path='/' element={<MyBucketList />}></Route>
+        <Route path='/createbucket' element={<Main />}></Route>
       </Routes>
     </BrowserRouter>
   )

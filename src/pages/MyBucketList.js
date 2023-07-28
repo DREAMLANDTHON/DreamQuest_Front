@@ -4,6 +4,7 @@ import palette from "../styles/colorPalette";
 
 import profile from "../contents/img_user_profile.jpg";
 import menuIcon from "../contents/ic_bucket_menu.jpg";
+import navigateNext from "../contents/ic_navigate_next.jpg";
 
 const MyBucketList = () => {
   return (
@@ -45,7 +46,12 @@ const MyBucketList = () => {
 
       {/* 나의 드림퀘스트 */}
       <MyBucket>
-        <MyBucketBox></MyBucketBox>
+        <MyBucketTitle>나의 드림퀘스트</MyBucketTitle>
+        <YearBucket>
+          <YearBucketContent>올해 달성한 드림퀘스트</YearBucketContent>
+          <YearBucketCount>16</YearBucketCount>
+          <NavigateNextBtn src={navigateNext}/>
+        </YearBucket>
       </MyBucket>
       
     </Container>
@@ -140,6 +146,7 @@ const BonusBox = styled.div`
   width: 92vw;
   border-radius: 1.8vw;
   background-color: ${palette.white};
+  box-shadow: 0.2vw 0.2vw 0.2vw 0.2vw ${palette.grayee};
 `;
 const BonusIcon = styled.div`
   margin-left: 4vw;
@@ -152,7 +159,7 @@ const BonusContent = styled.div`
   margin-bottom: 2.5vw;
 `;
 const BonusGoal = styled.div`
-  font-family: 'NotoSansKR-Bold';
+  font-family: 'NotoSansKR-Medium';
   font-size: 14px;
   color: ${palette.black};
 `;
@@ -178,13 +185,46 @@ const MyBucket = styled.div`
   margin-left: 4vw;
   margin-right: 4vw;
 `;
-const MyBucketBox = styled.div`
+const MyBucketTitle = styled.div`
+  font-family: 'NotoSansKR-Bold';
+  font-size: 16px;
+  color: ${palette.black};
+`;
+const YearBucket = styled.div`
   display: flex;
   align-items: center;
   margin-top: 2vw;
   width: 92vw;
   border-radius: 1.8vw;
   background-color: ${palette.white};
+  box-shadow: 0.2vw 0.2vw 0.2vw 0.2vw ${palette.grayee};
 `;
+const YearBucketContent = styled.div`
+  margin-left: 4vw;
+  margin-top: 4.3vw;
+  margin-bottom: 4.3vw;
+  font-family: 'NotoSansKR-Medium';
+  font-size: 14px;
+  color: ${palette.mainColor};
+`;
+const YearBucketCount = styled.div`
+  margin-left: auto;
+  margin-top: 4vw;
+  margin-bottom: 4vw;
+  font-family: 'NotoSansKR-Bold';
+  font-size: 16px;
+  color: ${palette.mainColor};
+`;
+const NavigateNextBtn = styled.img`
+  margin-left: 1vw;
+  margin-right: 4vw;
+  width: 6vw;
+  height: 6vw;
+  object-fit: cover;
+`;
+
+// 드림퀘스트 생성 버튼
+
+
 
 export default MyBucketList;
