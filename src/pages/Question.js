@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 
 
 const QuestionContainer = styled.div`
@@ -77,11 +76,9 @@ const QuestionNumber = styled.b`
   font-size: 20px;
   font-weight: bold;
 `;
-const URL = "http://localhost:8080";
 
 const Question = () => {
 
-  
   const navigator = useNavigate();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
@@ -106,13 +103,15 @@ const Question = () => {
     } else {
       console.log("모든 질문에 대한 답변이 완료되었습니다.");
       console.log(generateSummary());
+      localStorage.setItem("question", generateSummary());
       setIsCompleted(true);
+      navigator('/select')
 
-      axios.post(URL + "/chat", {
-        question: generateSummary()
-      }).then((response) => {
-        console.log(response);
-      });
+      // axios.post(URL + "/chat", {
+      //   question: generateSummary()
+      // }).then((response) => {
+      //   console.log(response);
+      // });
     }
   };
 

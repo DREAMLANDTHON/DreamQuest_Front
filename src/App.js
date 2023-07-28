@@ -6,7 +6,7 @@ import Main from './pages/Main';
 import MyBucketList from './pages/MyBucketList';
 import Question from './pages/Question';
 import MakedreamList from './pages/MakeDreamList';
-
+import Select from './pages/Select';
 const App = () => {
   return(
     <BrowserRouter>
@@ -15,6 +15,7 @@ const App = () => {
         <Route path='/createbucket' element={<Main />}></Route>
         <Route path='/question' element={<Question />} />
         <Route path='/makedreamlist' element={<MakedreamList />} />
+        <Route path='/select' element={<Select/>} />
       </Routes>
     </BrowserRouter>
   )
