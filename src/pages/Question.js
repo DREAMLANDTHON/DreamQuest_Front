@@ -8,12 +8,22 @@ const QuestionContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100vh; /* 화면 높이에 맞게 컨테이너를 가운데 정렬합니다 */
+  justify-content: flex-start;
+  height: 100vh;
+  position: relative;
 `;
 
 const QuestionContent = styled.div`
-  text-align: center;
+  text-align: left;
+`;
+
+const PreviousButton = styled.img`
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 50px;
+  z-index: 1;
 `;
 
 const URL = "http://localhost:8080";
@@ -28,7 +38,8 @@ const Question = () => {
   const navigator = useNavigate();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
-  const [isCompleted, setIsCompleted] = useState(false); // 마지막 질문 완료 여부
+  const [isCompleted, setIsCompleted] = useState(false);
+  const [showPreviousButton, setShowPreviousButton] = useState(false);
 
   const isAnswerEmpty = () => {
     return (
@@ -43,19 +54,30 @@ const Question = () => {
 
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setShowPreviousButton(true);
     } else {
       console.log("모든 질문에 대한 답변이 완료되었습니다.");
       console.log(generateSummary());
-      setIsCompleted(true); // 마지막 질문이 완료되었음을 표시
+      setIsCompleted(true);
 
-      // axios.post는 handleNextQuestion 함수 내에서 호출합니다.
       axios
         .post(URL + "/chat", {
-          "question": generateSummary()
+          question: generateSummary()
         })
         .then((response) => {
           console.log(response);
         });
+    }
+  };
+
+  const handlePreviousQuestion = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+      if (currentQuestionIndex === 0) {
+        setShowPreviousButton(false);
+      }
+    } else {
+      navigator.goBack();
     }
   };
 
@@ -77,7 +99,13 @@ const Question = () => {
 
   return (
     <QuestionContainer>
+      <PreviousButton
+        src={`${process.env.PUBLIC_URL}/prev.png`}
+        onClick={handlePreviousQuestion}
+        style={{ display: showPreviousButton ? "block" : "none" }}
+      />
       <ProgressBar currentStep={currentQuestionIndex + 1} totalSteps={questions.length} />
+
       <QuestionContent>
         <b>{`Q${currentQuestionIndex + 1}.`}</b>
         <p>{questions[currentQuestionIndex]}</p>
