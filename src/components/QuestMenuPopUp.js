@@ -32,6 +32,7 @@ const QuestMenuPopUp = ({ isOpen, isClose }) => {
 const Content = styled.div`
   display: block;
   position: absolute;
+  width: 60%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -44,21 +45,23 @@ const Btn = styled.div`
   display: block;
   padding-left: 20vw;
   padding-right: 20vw;
-  padding-top: 4.2vw;
-  padding-bottom: 4.2vw;
+  padding-top: 4.4vw;
+  padding-bottom: 4.4vw;
   font-family: 'NotoSansKR-Regular';
   font-size: 14px;
   color: ${palette.black};
+  text-align: center;
 `;
 const RedBtn = styled.div`
   display: block;
   padding-left: 20vw;
   padding-right: 20vw;
-  padding-top: 4.2vw;
-  padding-bottom: 4.2vw;
+  padding-top: 4.4vw;
+  padding-bottom: 4.4vw;
   font-family: 'NotoSansKR-Regular';
   font-size: 14px;
   color: ${palette.red};
+  text-align: center;
 `;
 
 

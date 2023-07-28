@@ -9,12 +9,14 @@ import menuIcon from "../contents/ic_bucket_menu.jpg";
 import navigateNext from "../contents/ic_navigate_next.jpg";
 
 import QuestMenuPopUp from "../components/QuestMenuPopUp";
+import CompleteQuestPopUp from "../components/CompleteQuestPopUp";
 
 const MyBucketList = () => {
   const dreamList = [["❤️", "고구마 먹고 춤추기"], ["🧡", "호랑이랑 악수하기"], ["💛", "사람들 앞에서 러닝머신타기"]];
   const emoji = ["❤️", "🧡", "💛", "💚", "💙", "💜"];
   
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [isCompleteQuest, setCompleteQuest] = useState(false);
 
   // 버킷리스트 메뉴 열기
   const OpenMenu = () => {
@@ -26,7 +28,17 @@ const MyBucketList = () => {
     setMenuOpen(false);
   }
 
-  // isMenuOpen 변수의 값이 변할 때마다 새로고침?
+  // 드림퀘스트 완료창 열기
+  const OpenCompleteQuest = () => {
+    setCompleteQuest(true);
+  }
+
+  // 드림퀘스트 완료창 닫기
+  const CloseCompleteQuest = () => {
+    setCompleteQuest(false);
+  }
+
+  // isMenuOpen 변수의 값이 변할 때마다 새로고침
   useEffect(() => {
   }, [isMenuOpen]);
 
@@ -89,8 +101,8 @@ const MyBucketList = () => {
         <div>
           {dreamList.map(dream => (
             <AllBucketBox>
-              <AllBucketIcon>{dream[0]}</AllBucketIcon>
-              <AllBucketContent>
+              <AllBucketIcon onClick={OpenCompleteQuest}>{dream[0]}</AllBucketIcon>
+              <AllBucketContent onClick={OpenCompleteQuest}>
                 <AllBucketGoal>{dream[1]}</AllBucketGoal>
                 <AllBucketCategory>일상</AllBucketCategory>
               </AllBucketContent>
@@ -103,6 +115,7 @@ const MyBucketList = () => {
       </AllBucketList>
 
       <QuestMenuPopUp isOpen={isMenuOpen} isClose={CloseMenu}/>
+      <CompleteQuestPopUp isOpen={isCompleteQuest} isClose={CloseCompleteQuest}/>
 
     </Container>
   );
@@ -346,6 +359,7 @@ const AllBucketContent = styled.div`
   display: block;
   margin-top: 2.5vw;
   margin-bottom: 2.5vw;
+  padding-right: 20vw;
 `;
 const AllBucketGoal = styled.div`
   font-family: 'NotoSansKR-Medium';
