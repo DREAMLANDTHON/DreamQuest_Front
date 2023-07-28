@@ -1,10 +1,10 @@
 import React from "react";
-import Question from "./Question";
+import MakeDreamList from "./MakeDreamList";
 
 const Main = () => {
     return(
         <>
-        <Question />
+        <MakeDreamList />
         </>
     )
 }
