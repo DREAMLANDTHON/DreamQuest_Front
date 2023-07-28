@@ -16,6 +16,7 @@ const Select = () => {
             try {
                 const response = await axios.post(URL + "/chat", {
                     question: question,
+                    m_id:1
                 });
                 console.log(response);
                 setLoading(false);
