@@ -3,7 +3,7 @@ import styled from "styled-components";
 import palette from "../styles/colorPalette";
 
 // emoji: 이모티콘, content: 버킷리스트 내용
-const UnselectQuest = (emoji, content) => {
+const UnselectQuest = ({emoji, content}) => {
   return (
     <AllBucketBox>
       <AllBucketIcon>{emoji}</AllBucketIcon>
