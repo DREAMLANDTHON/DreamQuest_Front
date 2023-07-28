@@ -2,7 +2,11 @@
 import styled from "styled-components";
 import palette from "../styles/colorPalette";
 
-const QuestMenuPopUp = ({ isOpen, isClose }) => {
+import axios from 'axios';
+
+const baseUrl = `http://localhost:8080`;
+
+const QuestMenuPopUp = ({ bucketId, bucketContent, isOpen, isClose }) => {
   const container = {
     display: isOpen ? 'block' : 'none',
   }
@@ -17,11 +21,25 @@ const QuestMenuPopUp = ({ isOpen, isClose }) => {
     zIndex: 9999,
   };
 
+  async function deleteBucket() {
+    //const response = 
+    await axios.delete(
+      baseUrl + `/chat/${bucketId}`
+    );
+  
+    //let result = response.data;
+    //console.log(result);
+
+    alert("선택한 드림퀘스트를 삭제하셨습니다!");
+    
+    isClose();
+  }
+
   return (
     <div style={container}>
       <div style={modalBackground} onClick={isClose}></div>
       <Content>
-        <RedBtn>삭제</RedBtn>
+        <RedBtn onClick={deleteBucket}>삭제</RedBtn>
         <Btn>수정</Btn>
         <Btn onClick={isClose}>취소</Btn>
       </Content>
@@ -33,8 +51,8 @@ const Content = styled.div`
   display: block;
   position: absolute;
   width: 60%;
-  top: 50%;
-  left: 50%;
+  top: 50vh;
+  left: 50vw;
   transform: translate(-50%, -50%);
   background-color: ${palette.white};
   border-radius: 1vw;

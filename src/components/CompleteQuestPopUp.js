@@ -3,7 +3,11 @@
 import styled from "styled-components";
 import palette from "../styles/colorPalette";
 
-const CompleteQuestPopUp = ({ isOpen, isClose }) => {
+import axios from 'axios';
+
+const baseUrl = `http://localhost:8080`;
+
+const CompleteQuestPopUp = ({ bucketId, bucketContent, isOpen, isClose }) => {
   const container = {
     display: isOpen ? 'block' : 'none',
   }
@@ -18,13 +22,29 @@ const CompleteQuestPopUp = ({ isOpen, isClose }) => {
     zIndex: 9999,
   };
 
+  async function complete() {
+    // const response = 
+    await axios.patch(
+      baseUrl + `/chat/${bucketId}`, {
+        bucket: bucketContent,
+        complete: true
+      }
+    );
+  
+    // let result = response.data;
+
+    alert("선택한 드림퀘스트를 완료하셨습니다!");
+    
+    isClose();
+  }
+
   return (
     <div style={container}>
       <div style={modalBackground} onClick={isClose}></div>
       <Content>
         <MenuTitle>퀘스트를 완료할까요?</MenuTitle>
-        <CompleteBtn>완료하기</CompleteBtn>
-        <CancelBtn>취소</CancelBtn>
+        <CompleteBtn onClick={complete}>완료하기</CompleteBtn>
+        <CancelBtn onClick={isClose}>취소</CancelBtn>
       </Content>
     </div>
   );
@@ -34,8 +54,8 @@ const Content = styled.div`
   display: block;
   position: absolute;
   width: 60%;
-  top: 50%;
-  left: 50%;
+  top: 50vh;
+  left: 50vw;
   padding-left: 3vw;
   padding-right: 3vw;
   transform: translate(-50%, -50%);

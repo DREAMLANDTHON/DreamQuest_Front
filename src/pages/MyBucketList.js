@@ -1,5 +1,6 @@
 // 나의 버킷리스트 페이지
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 import palette from "../styles/colorPalette";
@@ -19,30 +20,41 @@ const emoji = ["❤️", "🧡", "💛", "💚", "💙", "💜"];
 
 
 const MyBucketList = () => {
-  //const dreamList = [];
-  
-  
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isCompleteQuest, setCompleteQuest] = useState(false);
   const [dreamList, setDreamList] = useState([]);
+  const [completeCount, setCompleteCount] = useState(0);
+  
+  const [updateId, setUpdateId] = useState();
+  const [updateContent, setUpdateContent] = useState();
 
   // 전체 버킷리스트 받아오기
   async function getDreamQuests() {
     const response = await axios.post(
       baseUrl + `/chat/list`,
     );
-  
+
+    setDreamList([]);
+    setCompleteCount(0);
     let list = response.data;
     for(let i = 0; i < list.length; i++) {
       //dreamList.push([emoji[i%6], list[i].bucket]);
-      setDreamList((currentArray) => [...currentArray, [emoji[i%6], list[i].bucket]])
+      if(list[i].complete){
+        setCompleteCount((current) => current+1);
+      }
+      else {
+        setDreamList((currentArray) => [...currentArray, [emoji[i%6], list[i].bucket, list[i].id]])
+      }
     }
   
     return dreamList;
   }
 
   // 버킷리스트 메뉴 열기
-  const OpenMenu = () => {
+  const OpenMenu = (bucketId, bucketContent) => {
+    setUpdateId(bucketId);
+    setUpdateContent(bucketContent);
+
     setMenuOpen(true);
   }
 
@@ -52,7 +64,10 @@ const MyBucketList = () => {
   }
 
   // 드림퀘스트 완료창 열기
-  const OpenCompleteQuest = () => {
+  const OpenCompleteQuest = (bucketId, bucketContent) => {
+    setUpdateId(bucketId);
+    setUpdateContent(bucketContent);
+
     setCompleteQuest(true);
   }
 
@@ -64,7 +79,7 @@ const MyBucketList = () => {
   // 최초 접속 시, 드림퀘스트 조회해서 배열에 삽입
   useEffect(() => {
     getDreamQuests();
-  }, []);
+  }, [dreamList]);
 
   // isMenuOpen 변수의 값이 변할 때마다 새로고침
   useEffect(() => {
@@ -112,7 +127,7 @@ const MyBucketList = () => {
         <MyBucketTitle>나의 드림퀘스트</MyBucketTitle>
         <YearBucket>
           <YearBucketContent>올해 달성한 드림퀘스트</YearBucketContent>
-          <YearBucketCount>16</YearBucketCount>
+          <YearBucketCount>{completeCount}</YearBucketCount>
           <NavigateNextBtn src={navigateNext}/>
         </YearBucket>
       </MyBucket>
@@ -120,7 +135,11 @@ const MyBucketList = () => {
       {/* 드림퀘스트 생성 버튼 */}
       <CreateQuestBtns>
         <DirectCreateBtn>직접 등록</DirectCreateBtn>
-        <GptCreateBtn>나의 드림퀘스트 만들기</GptCreateBtn>
+        <Link
+          to={`/createbucket`}
+          style={{ textDecoration: "none" }}>
+          <GptCreateBtn>나의 드림퀘스트 만들기</GptCreateBtn>
+        </Link>
       </CreateQuestBtns>
 
       {/* 드림퀘스트 내용 */}
@@ -129,21 +148,30 @@ const MyBucketList = () => {
         <div>
           {dreamList.map(dream => (
             <AllBucketBox>
-              <AllBucketIcon onClick={OpenCompleteQuest}>{dream[0]}</AllBucketIcon>
-              <AllBucketContent onClick={OpenCompleteQuest}>
+              <AllBucketIcon onClick={() => {OpenCompleteQuest(dream[2], dream[1])}}>{dream[0]}</AllBucketIcon>
+              <AllBucketContent onClick={() => {OpenCompleteQuest(dream[2], dream[1])}}>
                 <AllBucketGoal>{dream[1]}</AllBucketGoal>
                 <AllBucketCategory>일상</AllBucketCategory>
               </AllBucketContent>
               <MenuButton
                 src={menuIcon}
-                onClick={OpenMenu}/>
+                onClick={() => {OpenMenu(dream[2], dream[1])}}/>
             </AllBucketBox>
           ))}
         </div>
       </AllBucketList>
 
-      <QuestMenuPopUp isOpen={isMenuOpen} isClose={CloseMenu}/>
-      <CompleteQuestPopUp isOpen={isCompleteQuest} isClose={CloseCompleteQuest}/>
+      <QuestMenuPopUp
+        bucketId={updateId}
+        bucketContent={updateContent}
+        isOpen={isMenuOpen}
+        isClose={CloseMenu}/>
+      
+      <CompleteQuestPopUp
+        bucketId={updateId}
+        bucketContent={updateContent}
+        isOpen={isCompleteQuest}
+        isClose={CloseCompleteQuest}/>
 
     </Container>
   );
@@ -331,8 +359,6 @@ const DirectCreateBtn = styled.div`
   width: 30vw;
   padding-top: 3.5vw;
   padding-bottom: 3.5vw;
-  padding-left: 6.3vw;
-  padding-right: 6.3vw;
   margin-right: 2vw;
   border: 1px solid ${palette.mainColor};
   border-radius: 1.8vw;
@@ -344,7 +370,7 @@ const DirectCreateBtn = styled.div`
 `;
 const GptCreateBtn = styled.div`
   width: 60vw;
-  padding: 3.5vw 3.5vw 3.5vw 3.5vw;
+  padding: 3.5vw 0vw 3.5vw 0vw;
   border-radius: 1.8vw;
   background-color: ${palette.mainColor};
   font-family: 'NotoSansKR-Medium';
