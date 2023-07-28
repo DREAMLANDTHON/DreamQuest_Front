@@ -6,7 +6,7 @@ import palette from "../styles/colorPalette";
 import checkIcon from "../contents/ic_check.jpg";
 
 // emoji: 이모티콘, content: 버킷리스트 내용
-const SelectQuest = (emoji, content) => {
+const SelectQuest = ({emoji, content}) => {
   return (
     <AllBucketBox>
       <AllBucketIcon>{emoji}</AllBucketIcon>
