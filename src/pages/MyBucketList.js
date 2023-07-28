@@ -1,4 +1,6 @@
 // 나의 버킷리스트 페이지
+import { useEffect, useState } from "react";
+
 import styled from "styled-components";
 import palette from "../styles/colorPalette";
 
@@ -6,9 +8,27 @@ import profile from "../contents/img_user_profile.jpg";
 import menuIcon from "../contents/ic_bucket_menu.jpg";
 import navigateNext from "../contents/ic_navigate_next.jpg";
 
+import QuestMenuPopUp from "../components/QuestMenuPopUp";
+
 const MyBucketList = () => {
   const dreamList = [["❤️", "고구마 먹고 춤추기"], ["🧡", "호랑이랑 악수하기"], ["💛", "사람들 앞에서 러닝머신타기"]];
   const emoji = ["❤️", "🧡", "💛", "💚", "💙", "💜"];
+  
+  const [isMenuOpen, setMenuOpen] = useState(false);
+
+  // 버킷리스트 메뉴 열기
+  const OpenMenu = () => {
+    setMenuOpen(true);
+  }
+
+  // 버킷리스트 메뉴 닫기
+  const CloseMenu = () => {
+    setMenuOpen(false);
+  }
+
+  // isMenuOpen 변수의 값이 변할 때마다 새로고침?
+  useEffect(() => {
+  }, [isMenuOpen]);
 
   return (
     <Container>
@@ -74,12 +94,16 @@ const MyBucketList = () => {
                 <AllBucketGoal>{dream[1]}</AllBucketGoal>
                 <AllBucketCategory>일상</AllBucketCategory>
               </AllBucketContent>
-              <MenuButton src={menuIcon} />
+              <MenuButton
+                src={menuIcon}
+                onClick={OpenMenu}/>
             </AllBucketBox>
           ))}
         </div>
       </AllBucketList>
-      
+
+      <QuestMenuPopUp isOpen={isMenuOpen} isClose={CloseMenu}/>
+
     </Container>
   );
 }
@@ -200,9 +224,10 @@ const MenuButton = styled.img`
   width: 5vw;
   height: 5vw;
   margin-left: auto;
-  margin-right: 3vw;
-  margin-top: 4.5vw;
-  margin-bottom: 4.5vw;
+  padding: 1vw;
+  margin-right: 2vw;
+  margin-top: 3.5vw;
+  margin-bottom: 3.5vw;
   object-fit: cover;
 `;
 
