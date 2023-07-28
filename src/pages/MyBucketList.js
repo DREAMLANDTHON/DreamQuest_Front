@@ -224,7 +224,7 @@ const NavigateNextBtn = styled.img`
 `;
 
 // 드림퀘스트 생성 버튼
-const CreateQuestBtn = styled.div`
+const CreateQuestBtns = styled.div`
   
 `;
 
