@@ -6,11 +6,11 @@ import {
 import MyBucketList from "./pages/MyBucketList";
 
 function App() {
-  return <Router basename={process.env.PUBLIC_URL}>
+  return (<Router basename={process.env.PUBLIC_URL}>
     <Routes>
       <Route path="/" element={<MyBucketList />} />
     </Routes>
-  </Router>;
+  </Router>);
 }
 
 export default App;
