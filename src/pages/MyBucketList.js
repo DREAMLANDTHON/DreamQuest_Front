@@ -17,6 +17,7 @@ import axios from 'axios';
 const baseUrl = `http://localhost:8080`;
 
 const emoji = ["❤️", "🧡", "💛", "💚", "💙", "💜"];
+const level = [0, 1, 2, 3, 5, 8, 11];
 
 
 const MyBucketList = () => {
@@ -24,6 +25,7 @@ const MyBucketList = () => {
   const [isCompleteQuest, setCompleteQuest] = useState(false);
   const [dreamList, setDreamList] = useState([]);
   const [completeCount, setCompleteCount] = useState(0);
+  const [userLevel, setUserLevel] = useState(0);
   
   const [updateId, setUpdateId] = useState();
   const [updateContent, setUpdateContent] = useState();
@@ -44,6 +46,24 @@ const MyBucketList = () => {
       }
       else {
         setDreamList((currentArray) => [...currentArray, [emoji[i%6], list[i].bucket, list[i].id]])
+      }
+    }
+  
+    return dreamList;
+  }
+  
+  // 현재 레벨, 완료된 드림퀘스트 갯수
+  async function getLevel() {
+    const response = await axios.post(
+      baseUrl + `/member/list`,
+    );
+
+    let list = response.data;
+    for(let i = 0; i < list.length; i++) {
+    
+      if(list[i].id == 1){
+        setCompleteCount(list[i].complete_count);
+        setUserLevel(list[i].level);
       }
     }
   
@@ -79,11 +99,12 @@ const MyBucketList = () => {
   // 최초 접속 시, 드림퀘스트 조회해서 배열에 삽입
   useEffect(() => {
     getDreamQuests();
+    getLevel();
   }, [dreamList]);
 
   // isMenuOpen 변수의 값이 변할 때마다 새로고침
   useEffect(() => {
-  }, [isMenuOpen, dreamList]);
+  }, [isMenuOpen, dreamList, userLevel]);
 
   return (
     <Container>
@@ -95,7 +116,7 @@ const MyBucketList = () => {
 
       {/* 레벨 정보 */}
       <DreamLevel>
-        <Level>Lv.3</Level>
+        <Level>Lv.{userLevel}</Level>
 
         {/* 레벨 진행바 */}
         <Progress>
@@ -104,8 +125,8 @@ const MyBucketList = () => {
         </Progress>
 
         <LevelNotice>
-          드림퀘스트 <b>2개</b>를 더 달성하고,<br/>
-          <b>Lv.4</b>로 레벨업하세요!
+          드림퀘스트 <b>{level[userLevel + 1] - completeCount}개</b>를 더 달성하고,<br/>
+          <b>Lv.{userLevel + 1}</b>로 레벨업하세요!
         </LevelNotice>
       </DreamLevel>
 
