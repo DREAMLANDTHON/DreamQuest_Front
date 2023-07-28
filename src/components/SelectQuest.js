@@ -64,3 +64,5 @@ const CheckButton = styled.img`
   margin-bottom: 3.5vw;
   object-fit: cover;
 `;
+
+export default SelectQuest;
