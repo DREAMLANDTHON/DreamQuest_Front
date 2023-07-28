@@ -5,7 +5,7 @@ import styled from "styled-components";
 const MyBucketList = () => {
   return (
     <Container>
-      
+      dream
     </Container>
   );
 }
