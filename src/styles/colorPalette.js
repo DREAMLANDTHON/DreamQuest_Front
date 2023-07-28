@@ -3,6 +3,7 @@ const palette = {
   mainColor: '#8B5C97',
   progressPurple: '#EAE6F3',
   lightPurple: '#F3ECEF',
+  selectPurple: '#FAF6FB',
   background: '#F5F5FD',
   black: '#000000',
   white: '#FFFFFF',
