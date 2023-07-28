@@ -57,7 +57,7 @@ const Input = styled.input`
   width: 98%; /* 인풋칸을 화면 너비에 맞게 설정합니다. */
   font-family: NotoSansKR-Regular;
   font-size: 14px;
-  test-align: top;
+  text-align: top;
 `;
 
 const Button = styled.button`
@@ -135,8 +135,8 @@ const Question = () => {
   };
 
   const generateSummary = () => {
-    const summary = `' ${answers[0] || ""}', '${
-      answers[1] || ""}','${answers[2] || ""}'이 상황에 맞는 한달안에 끝낼 수 있는 버킷리스트 5개 추천해줘 !!`;
+    const summary = `Was there a song, play, or playground that you liked to listen to when you were young?: ${answers[0] || ""}, What was the most memorable teacher or class at school?: ${
+      answers[1] || ""},Is there anything you wanted to do as a child but couldn't do now that you look back on?:${answers[2] || ""}Please make 8 specific bucket lists related to the above information for me and let me know naturally in Korean. For example, if one of the information is related to 'bakery,' I would like you to give me an answer such as 'baking cookies within a month.'`;
     return summary;
   };
 

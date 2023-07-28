@@ -27,7 +27,7 @@ const SelectDreamQuest = () => {
         //setBucketData(response.data);
         let list = response.data;
         let idx = 0;
-        for(let i = (list.length - 5); i < list.length ; i++) {
+        for(let i = list.length - 1; i > (list.length - 4) && i >= 0 ; i--) {
           setBucketData((currentArray) => [...currentArray, [idx++, emoji[i%5], list[i].bucket, list[i].id]]);
         }
       })
@@ -44,7 +44,7 @@ const SelectDreamQuest = () => {
   }, [bucketData]);
 
   const handleSave = () => {
-    for(let i = 0; i < 5; i++) {
+    for(let i = 0; i < selected.length; i++) {
       if(!selected[i]) {
         deleteBucket(bucketData[i][3]);
       }
