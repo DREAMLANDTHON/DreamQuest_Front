@@ -57,7 +57,7 @@ const Input = styled.input`
   width: 98%; /* 인풋칸을 화면 너비에 맞게 설정합니다. */
   font-family: NotoSansKR-Regular;
   font-size: 14px;
-  test-align: top;
+  text-align: top;
 `;
 
 const Button = styled.button`
@@ -77,8 +77,8 @@ const QuestionNumber = styled.b`
   font-weight: bold;
 `;
 
-const Question = () => {
 
+const Question = () => {
   const navigator = useNavigate();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
@@ -100,18 +100,17 @@ const Question = () => {
     if (currentQuestionIndex < 2) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setShowPreviousButton(true);
+      setAnswers((prevAnswers) => {
+        const updatedAnswers = [...prevAnswers];
+        updatedAnswers[currentQuestionIndex] = ""; // 다음 버튼을 클릭했을 때 입력한 내용을 초기화합니다.
+        return updatedAnswers;
+      });
     } else {
       console.log("모든 질문에 대한 답변이 완료되었습니다.");
       console.log(generateSummary());
       localStorage.setItem("question", generateSummary());
       setIsCompleted(true);
-      navigator('/select')
-
-      // axios.post(URL + "/chat", {
-      //   question: generateSummary()
-      // }).then((response) => {
-      //   console.log(response);
-      // });
+      navigator('/select');
     }
   };
 
@@ -136,9 +135,8 @@ const Question = () => {
   };
 
   const generateSummary = () => {
-    const summary = `나는 과거에 ${answers[0] || ""}를 좋아했고, 지금은 ${
-      answers[1] || ""
-    }를 좋아하고 지금 ${answers[2] || ""}를 잘해요. 한달치 버킷리스트 5개 짜주라 !! 간단하게`;
+    const summary = `Was there a song, play, or playground that you liked to listen to when you were young?: ${answers[0] || ""}, What was the most memorable teacher or class at school?: ${
+      answers[1] || ""},Is there anything you wanted to do as a child but couldn't do now that you look back on?:${answers[2] || ""}Please make 8 specific bucket lists related to the above information for me and let me know naturally in Korean. For example, if one of the information is related to 'bakery,' I would like you to give me an answer such as 'baking cookies within a month.'`;
     return summary;
   };
 
@@ -168,22 +166,18 @@ const Question = () => {
   const renderQuestion = () => {
     switch (currentQuestionIndex) {
       case 0:
-        return <p>나는 어린시적 <b>어쩌구</b> 했당.</p>;
+        return <p><b>어린 시절</b> 즐겨했던 <br /><b>노래, 놀이, 또는 놀이터</b>가 있었나요?</p>;
       case 1:
-        return <p>sksms <b>짱</b>이다.</p>;
+        return <p>학교에서 <b>가장 기억에 남는</b><br /><b>선생님 또는 수업</b>은 어떤 것이었나요?</p>;
       case 2:
-        return <p>랄라라라<b>헉~</b></p>
+        return <p>어릴 때 하고 싶어했지만 하지 못했던 것 중에서<br /><b>지금 돌아보면 후회</b>되는 게 있나요?</p>
       default:
         return <p>없음</p>;
     }
   };
+
   return (
     <QuestionContainer>
-      {/* <PreviousButtonFirst
-       src={`${process.env.PUBLIC_URL}/prev.png`}
-       onClick={handlePreviousQuestion}
-        /> */}
-        
       <PreviousButton
         src={`${process.env.PUBLIC_URL}/prev.png`}
         onClick={handlePreviousQuestion}
@@ -193,8 +187,8 @@ const Question = () => {
       </ProgressBarContainer>
 
       <QuestionContent >
-      <QuestionNumber>{`Q${currentQuestionIndex + 1}.`}</QuestionNumber>
-      {renderQuestion()}
+        <QuestionNumber>{`Q${currentQuestionIndex + 1}.`}</QuestionNumber>
+        {renderQuestion()}
         <Input
           id="input" // 이 부분을 추가해주세요.
           placeholder="자유롭게 입력해주세요."

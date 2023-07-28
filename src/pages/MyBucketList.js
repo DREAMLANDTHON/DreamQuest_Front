@@ -11,6 +11,7 @@ import navigateNext from "../contents/ic_navigate_next.jpg";
 
 import QuestMenuPopUp from "../components/QuestMenuPopUp";
 import CompleteQuestPopUp from "../components/CompleteQuestPopUp";
+import DirectInputPopUp from "../components/DirectInputPopUp";
 
 import axios from 'axios';
 
@@ -23,6 +24,8 @@ const level = [0, 1, 2, 3, 5, 8, 11];
 const MyBucketList = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isCompleteQuest, setCompleteQuest] = useState(false);
+  const [isDirectInput, setDirectInput] = useState(false);
+
   const [dreamList, setDreamList] = useState([]);
   const [completeCount, setCompleteCount] = useState(0);
   const [userLevel, setUserLevel] = useState(0);
@@ -61,7 +64,7 @@ const MyBucketList = () => {
     let list = response.data;
     for(let i = 0; i < list.length; i++) {
     
-      if(list[i].id == 1){
+      if(list[i].id === 1){
         setCompleteCount(list[i].complete_count);
         setUserLevel(list[i].level);
       }
@@ -96,6 +99,16 @@ const MyBucketList = () => {
     setCompleteQuest(false);
   }
 
+  // 직접 추가 입력창 열기
+  const OpenDirectInput = () => {
+    setDirectInput(true);
+  }
+
+  // 직접 추가 입력창 닫기
+  const CloseDirectInput = () => {
+    setDirectInput(false);
+  }
+
   // 최초 접속 시, 드림퀘스트 조회해서 배열에 삽입
   useEffect(() => {
     getDreamQuests();
@@ -104,7 +117,7 @@ const MyBucketList = () => {
 
   // isMenuOpen 변수의 값이 변할 때마다 새로고침
   useEffect(() => {
-  }, [isMenuOpen, dreamList, userLevel]);
+  }, [isMenuOpen, dreamList, userLevel, isDirectInput]);
 
   return (
     <Container>
@@ -121,7 +134,7 @@ const MyBucketList = () => {
         {/* 레벨 진행바 */}
         <Progress>
           <ProgressBack/>
-          <ProgressFrontBack/>
+          <ProgressFrontBack widthPer={userLevel * 10}/>
         </Progress>
 
         <LevelNotice>
@@ -136,7 +149,7 @@ const MyBucketList = () => {
         <BonusBox>
           <BonusIcon>🔥</BonusIcon>
           <BonusContent>
-            <BonusGoal>5레벨 달성하기</BonusGoal>
+            <BonusGoal>{userLevel + 1} 레벨 달성하기</BonusGoal>
             <BonusCategory>일상</BonusCategory>
           </BonusContent>
           <MenuButton src={menuIcon} />
@@ -155,7 +168,10 @@ const MyBucketList = () => {
 
       {/* 드림퀘스트 생성 버튼 */}
       <CreateQuestBtns>
-        <DirectCreateBtn>직접 등록</DirectCreateBtn>
+        <DirectCreateBtn
+          onClick={OpenDirectInput}>
+            직접 등록
+        </DirectCreateBtn>
         <Link
           to={`/createbucket`}
           style={{ textDecoration: "none" }}>
@@ -182,17 +198,24 @@ const MyBucketList = () => {
         </div>
       </AllBucketList>
 
+      {/* 드림퀘스트 메뉴: 수정, 삭제 */}
       <QuestMenuPopUp
         bucketId={updateId}
         bucketContent={updateContent}
         isOpen={isMenuOpen}
         isClose={CloseMenu}/>
       
+      {/* 드림퀘스트 완료 */}
       <CompleteQuestPopUp
         bucketId={updateId}
         bucketContent={updateContent}
         isOpen={isCompleteQuest}
         isClose={CloseCompleteQuest}/>
+
+      {/* 드림퀘스트 직접 추가 입력 */}
+      <DirectInputPopUp
+        isOpen={isDirectInput}
+        isClose={CloseDirectInput} />
 
     </Container>
   );
@@ -254,7 +277,7 @@ const ProgressBack = styled.div`
 `;
 const ProgressFrontBack = styled.div`
   position: absolute;
-  width: 30%;
+  width: ${props => `${props.widthPer}%`};
   height: 2vw;
   margin-top: 2vw;
   border-radius: 2vw;
