@@ -74,20 +74,26 @@ const SelectDreamQuest = () => {
   }
 
   const handleRetry = () => {
+    // 선택되지 않은 드림 퀘스트의 id를 배열로 수집합니다.
     const unselectedIds = bucketData
+      .filter((_, index) => !selected[index])
       .map((bucket) => bucket[3]);
-
-    // 다시 요청하기 전에 5개를 모두 삭제 요청합니다.
+  
+    // 선택되지 않은 드림 퀘스트들을 삭제 요청합니다.
     Promise.all(unselectedIds.map(deleteBucket))
       .then(() => {
-        // 삭제 요청이 모두 완료된 후에 navigate를 호출합니다.
-        navigate("/");
+        // 삭제 요청이 모두 완료된 후에 다시 요청하기 위해 선택된 데이터를 저장합니다.
+        const selectedData = bucketData.filter((_, index) => selected[index]);
+        setBucketData(selectedData);
+  
+        // navigate를 호출하여 메인 페이지로 이동합니다.
+        // navigate("/");
       })
       .catch((error) => {
         // 에러 처리
         console.error("Error deleting bucket data:", error);
       });
-
+  
     window.location.reload();
   };
 
