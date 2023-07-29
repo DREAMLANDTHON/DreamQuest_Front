@@ -8,6 +8,7 @@ import palette from "../styles/colorPalette";
 import profile from "../contents/img_user_profile.jpg";
 import menuIcon from "../contents/ic_bucket_menu.jpg";
 import navigateNext from "../contents/ic_navigate_next.jpg";
+import dreamLogo from "../contents/ic_dream_quest_logo.png";
 
 import QuestMenuPopUp from "../components/QuestMenuPopUp";
 import CompleteQuestPopUp from "../components/CompleteQuestPopUp";
@@ -124,7 +125,8 @@ const MyBucketList = () => {
       {/* 헤더: 프로필, 서비스명 */}
       <Header>
         <ProfileImage src={profile}/>
-        <ServiceName>DreamQuest</ServiceName>
+        {/*<ServiceName>DreamQuest</ServiceName>*/}
+        <ServiceImg src={dreamLogo} />
       </Header>
 
       {/* 레벨 정보 */}
@@ -252,6 +254,13 @@ const ServiceName = styled.div`
   font-family: 'NotoSansKR-Regular';
   font-size: 14px;
   color: ${palette.black};
+`;
+const ServiceImg = styled.img`
+  display: block;
+  margin: auto;
+  padding-right: 12vw;
+  width: 24vw;
+  height: 4vw;
 `;
 
 // 드림 레벨

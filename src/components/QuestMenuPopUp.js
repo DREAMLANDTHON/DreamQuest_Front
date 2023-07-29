@@ -65,7 +65,7 @@ const QuestMenuPopUp = ({ bucketId, bucketContent, isOpen, isClose }) => {
         <EditContent>
         <EditTitle>드림퀘스트 수정하기</EditTitle>
         <form onSubmit={(event) => edit(event)}>
-          <EditInputQuest type="text" name="quest" placeholder="드림퀘스트 내용을 작성해주세요."/>
+          <EditInputQuest type="text" name="quest" defaultValue={bucketContent} placeholder="드림퀘스트 내용을 작성해주세요."/>
           <EditCompleteBtn type="submit" value="완료하기" />
         </form>
         <EditCancelBtn onClick={isClose}>취소</EditCancelBtn>
