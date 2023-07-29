@@ -26,10 +26,11 @@ const SelectDreamQuest = () => {
         // 받아온 데이터를 상태로 저장합니다.
         //setBucketData(response.data);
         let list = response.data;
-        let idx = 0;
-        for(let i = list.length - 1; i > (list.length - 4) && i >= 0 ; i--) {
-          setBucketData((currentArray) => [...currentArray, [idx++, emoji[i%5], list[i].bucket, list[i].id]]);
+        for(let i = list.length - 1; i >= (list.length - 5) && i >= 0 ; i--) {
+          if(!list[i].complete)
+            setBucketData((currentArray) => [...currentArray, [currentArray.length, emoji[i%5], list[i].bucket, list[i].id]]);
         }
+        console.log(list);
       })
       .catch((error) => {
         // 에러 처리
