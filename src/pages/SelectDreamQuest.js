@@ -15,6 +15,24 @@ const SelectDreamQuest = () => {
   const navigate = useNavigate();
   const [bucketData, setBucketData] = useState([]); // 버킷 데이터를 저장할 상태를 생성합니다.
 
+  const handleSave = () => {
+    // 선택되지 않은 드림 퀘스트의 id를 배열로 수집합니다.
+    const unselectedIds = bucketData
+      .filter((_, index) => !selected[index])
+      .map((bucket) => bucket[3]);
+
+    // 서버에 선택되지 않은 드림 퀘스트들을 삭제 요청합니다.
+    Promise.all(unselectedIds.map(deleteBucket))
+      .then(() => {
+        // 삭제 요청이 모두 완료된 후에 navigate를 호출합니다.
+        navigate("/");
+      })
+      .catch((error) => {
+        // 에러 처리
+        console.error("Error deleting bucket data:", error);
+      });
+  };
+
 
   const url = "http://localhost:8080"
   useEffect(() => {
@@ -44,15 +62,6 @@ const SelectDreamQuest = () => {
   useEffect(() => {
   }, [bucketData]);
 
-  const handleSave = () => {
-    for(let i = 0; i < selected.length; i++) {
-      if(!selected[i]) {
-        deleteBucket(bucketData[i][3]);
-      }
-    }
-
-    navigate("/");
-  };
 
   async function deleteBucket(bucketId) {
     //const response = 
@@ -65,6 +74,20 @@ const SelectDreamQuest = () => {
   }
 
   const handleRetry = () => {
+    const unselectedIds = bucketData
+      .map((bucket) => bucket[3]);
+
+    // 다시 요청하기 전에 5개를 모두 삭제 요청합니다.
+    Promise.all(unselectedIds.map(deleteBucket))
+      .then(() => {
+        // 삭제 요청이 모두 완료된 후에 navigate를 호출합니다.
+        navigate("/");
+      })
+      .catch((error) => {
+        // 에러 처리
+        console.error("Error deleting bucket data:", error);
+      });
+
     window.location.reload();
   };
 
