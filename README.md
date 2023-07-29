@@ -1,7 +1,8 @@
 # Dream Quest
 ```
-🧚🏻‍♀️ 2023 HGU Dreamlandthon - Team F5🔄️
+⭐ Chat OpenAI를 이용하여 우울감을 느끼는 사람에게 활동을 제안하는 웹 서비스
 📅 2023.07.27.목 ~ 2023.07.29.토
+🧚🏻‍♀️ 2023 HGU Dreamlandthon - Team F5🔄️
 ```
 
 <div align="center">
