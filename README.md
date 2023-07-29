@@ -1,3 +1,5 @@
+![Frame 11](https://github.com/DREAMLANDTHON/Dream-Quest_Front/assets/76805879/16600c78-b333-4019-a5d8-c9e47fe24ca4)
+
 # Dream Quest
 ```
 ⭐ Chat OpenAI를 이용하여 우울감을 느끼는 사람에게 활동을 제안하는 웹 서비스
