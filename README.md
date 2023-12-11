@@ -54,7 +54,7 @@
 | :------------ | :------------ | :------------ | :------------ |
 | **Plan** | 김이 | 경북대학교 | [@eaststar113](https://github.com/eaststar113) |  
 | **Design** | 김유빈 | 영남대학교 |  |
-| **Web Frontend** | 민서영 | 영남대학교 | [@mymooss](https://github.com/mymooss) |
+| **Frontend** | 민서영 | 영남대학교 | [@mymooss](https://github.com/mymooss) |
 |  | 조정미 | 경상대학교 | [@jung0115](https://github.com/jung0115) |
 | **Server** | 장유진 | 한동대학교 | [@uojin29](https://github.com/uojin29) |
 
