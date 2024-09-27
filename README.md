@@ -1,11 +1,12 @@
 ![드림퀘스트](https://github.com/DREAMLANDTHON/Dream-Quest_Front/assets/76805879/16600c78-b333-4019-a5d8-c9e47fe24ca4)
 
 # [Dream Quest](https://hguhackathon.com/project/F5)
-```
-✅ Chat OpenAI를 이용하여 우울감을 느끼는 사람에게 활동을 제안하는 웹 서비스
-📅 2023.07.27.목 ~ 2023.07.29.토 (2박 3일)
-🏆 2023 HGU Dreamlandthon 장려상(5위)
-```
+> [!Note]
+> ✅ Chat OpenAI를 이용하여 우울감을 느끼는 사람에게 활동을 제안하는 웹 서비스  
+> 📅 2023.07.27.목 ~ 2023.07.29.토 (2박 3일)  
+> 🏆 2023 영남권 대학 연합 여름 AI 해커톤 Dreamlandthon 장려상(5위)  
+> 🔥 (a)zit, 한동대학교, 한동대학교 LINC3.0 사업단, E•LAND INNOple, Next Challenge, datamaker
+
 
 <div align="center">
   <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FDREAMLANDTHON%2FDream-Quest_Front&count_bg=%23D37BE9&title_bg=%239B27B8&icon=icloud.svg&icon_color=%23E7E7E7&title=Dream+Quest&edge_flat=false"/></a>
